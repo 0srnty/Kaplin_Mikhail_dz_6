@@ -1,41 +1,17 @@
-from memory_profiler import profile
-from pympler import asizeof
+import random
+
+ra = [i for i in random.sample(range(-100, 100), len(range(-100, 100)))]
+print(ra)
 
 
-class Road:
-    def __init__(self, length, width):
-        self._width = width
-        self._length = length
-
-    def mass_count(self, mass, tol):
-        print(self._width * self._length * mass * tol)
-
-
-class Road2:
-    __slots__ = ['length', 'width']
-
-    def __init__(self, length, width):
-        self.width = width
-        self.length = length
-
-    def mass_count(self, mass, tol):
-        print(self.width * self.length * mass * tol)
+def sort1(rnd_list):
+    n = 1
+    while n < len(rnd_list):
+        for i in range(len(rnd_list) - n):
+            if rnd_list[i] < rnd_list[i + 1]:
+                rnd_list[i], rnd_list[i + 1] = rnd_list[i + 1], rnd_list[i]
+        n += 1
+    return rnd_list
 
 
-@profile
-def testfunc1():
-    road_1 = Road(20, 40)
-
-
-@profile
-def testfunc2():
-    road_2 = Road2(20, 40)
-
-
-testfunc1()
-testfunc2()
-
-road_3 = Road(20, 40)
-road_4 = Road2(20, 40)
-print(asizeof.asizeof(road_3))
-print(asizeof.asizeof(road_4))
+print(sort1(ra))

@@ -1,17 +1,42 @@
-from dataclasses import make_dataclass
-from memory_profiler import profile
-from pympler import asizeof
+import random
+
+ra = [i for i in random.sample(range(0, 50), len(range(0, 50)))]
+print(ra)
 
 
-class Road:
-    def __init__(self, length, width):
-        self._width = width
-        self._length = length
+def merge_sort(rnd_list, start, end):
+    if end - start > 1:
+        mid = (start + end) // 2
+        merge_sort(rnd_list, start, mid)
+        merge_sort(rnd_list, mid, end)
+        merge_list(rnd_list, start, mid, end)
 
 
-Road2 = make_dataclass('Road2', ('length', 'width'))
+def merge_list(rnd_list, start, mid, end):
+    left = rnd_list[start:mid]
+    right = rnd_list[mid:end]
+    k = start
+    i = 0
+    j = 0
+    while start + i < mid and mid + j < end:
+        if left[i] <= right[j]:
+            rnd_list[k] = left[i]
+            i = i + 1
+        else:
+            rnd_list[k] = right[j]
+            j = j + 1
+        k = k + 1
+    if start + i < mid:
+        while k < end:
+            rnd_list[k] = left[i]
+            i = i + 1
+            k = k + 1
+    else:
+        while k < end:
+            rnd_list[k] = right[j]
+            j = j + 1
+            k = k + 1
 
-road_3 = Road(20, 40)
-road_4 = Road2(20, 40)
-print(asizeof.asizeof(road_3))
-print(asizeof.asizeof(road_4))
+
+merge_sort(ra, 0, len(ra))
+print(ra)
